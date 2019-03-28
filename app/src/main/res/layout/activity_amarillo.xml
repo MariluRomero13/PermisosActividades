@@ -7,7 +7,23 @@
     android:layout_margin="10dp"
     tools:context=".AmarilloActivity">
 
-    <RelativeLayout
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Para que inicie esta aplicacion se necesitan los siguientes permisos:"
+       android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/contenedor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+    </LinearLayout>
+
+    <!--<RelativeLayout
         android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,6 +80,6 @@
             android:id="@+id/ubicacionSwitch"
             android:layout_alignParentRight="true"
             android:checked="false"/>
-    </RelativeLayout>
+    </RelativeLayout>-->
 
 </RelativeLayout>

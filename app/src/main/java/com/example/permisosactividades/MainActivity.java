@@ -18,16 +18,17 @@ public class MainActivity extends AppCompatActivity {
 
         String[] permisos = new String[] {Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.ACCESS_FINE_LOCATION};
         ArrayList<String> permisosDenegados = new ArrayList<>();
-        int auxiliar = 0;
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
+            metodoPermisos();
         }
 
-        public int permisos()
+        public void permisos()
         {
-            int contador = 0;
+
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             {
                 permisosDenegados.clear();
@@ -36,18 +37,33 @@ public class MainActivity extends AppCompatActivity {
                     if(ActivityCompat.checkSelfPermission(MainActivity.this, permisos[i]) != PackageManager.PERMISSION_GRANTED)
                     {
                         permisosDenegados.add(permisos[i]);
-                        contador++;
                     }
                 }
             }
-            return contador;
         }
 
+        public void metodoPermisos()
+        {
+            permisos();
+            if(permisosDenegados.size() == 0)
+            {
+                Intent actividad = new Intent(MainActivity.this, RosaActivity.class);
+                startActivity(actividad);
+            }
+            else
+            {
+
+                Intent actividad2 = new Intent(MainActivity.this, AmarilloActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("permisosDenegados", permisosDenegados);
+                actividad2.putExtras(bundle);
+                startActivity(actividad2);
+            }
+        }
         public void onAccept(View view)
         {
-             auxiliar =  permisos();
-             Log.d("per",permisosDenegados.toString());
-            if(auxiliar == 0)
+            permisos();
+            if(permisosDenegados.size() == 0)
             {
                 Intent actividad = new Intent(MainActivity.this, RosaActivity.class);
                 startActivity(actividad);
