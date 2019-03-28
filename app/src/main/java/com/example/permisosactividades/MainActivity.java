@@ -45,12 +45,7 @@ public class MainActivity extends AppCompatActivity {
         public void metodoPermisos()
         {
             permisos();
-            if(permisosDenegados.size() == 0)
-            {
-                Intent actividad = new Intent(MainActivity.this, RosaActivity.class);
-                startActivity(actividad);
-            }
-            else
+            if(permisosDenegados.size() >= 1)
             {
 
                 Intent actividad2 = new Intent(MainActivity.this, AmarilloActivity.class);
@@ -60,22 +55,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(actividad2);
             }
         }
-        public void onAccept(View view)
-        {
-            permisos();
-            if(permisosDenegados.size() == 0)
-            {
-                Intent actividad = new Intent(MainActivity.this, RosaActivity.class);
-                startActivity(actividad);
-            }
-            else
-            {
 
-                Intent actividad2 = new Intent(MainActivity.this, AmarilloActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList("permisosDenegados", permisosDenegados);
-                actividad2.putExtras(bundle);
-                startActivity(actividad2);
-            }
-        }
 }
