@@ -34,10 +34,6 @@ public class MainActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
             metodoPermisos();
-
-
-
-
         }
 
         public void permisos()
@@ -70,32 +66,35 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-    public void iniciarSesion(View view) {
+        public void iniciarSesion(View view) {
         EditText ed=findViewById(R.id.txt_email);
         EditText pas=findViewById(R.id.txt_contra);
 
         JSONObject dd = new JSONObject();
-
         try {
             dd.put("email",ed.getText().toString());
             dd.put("password",pas.getText().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         JsonObjectRequest jor=new JsonObjectRequest(Request.Method.POST, Datos.URL+"/login",dd, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
                 try {
                 Gson gson = new Gson();
+                User us= gson.fromJson(response.getJSONObject("datos").getJSONObject("user").toString(), User.class);
+                Datos.Usuario=us;
 
-               User us= gson.fromJson(response.getJSONObject("datos").getJSONObject("user").toString(), User.class);
-                Log.d("contestar",response.toString());
 
+                Intent i=new Intent(MainActivity.this,RosaActivity.class);
+                startActivity(i);
+                finish();
 
                 } catch (JSONException e) {
-                    e.printStackTrace();
+
+                    Toast.makeText(MainActivity.this, "verifica tus datos", Toast.LENGTH_SHORT).show();
+                    /* e.printStackTrace();*/
                 }
 
 
